@@ -1,0 +1,39 @@
+# https://github.com/awesome-containers/static-bash
+ARG STATIC_BASH_VERSION=5.2.15
+ARG STATIC_BASH_IMAGE=ghcr.io/awesome-containers/static-bash
+
+# https://github.com/awesome-containers/static-openssh
+ARG STATIC_OPENSSH_VERSION=3.0.8
+ARG STATIC_OPENSSH_IMAGE=ghcr.io/awesome-containers/static-openssh
+
+# https://github.com/awesome-containers/alpine-build-essential
+ARG BUILD_ESSENTIAL_VERSION=3.17
+ARG BUILD_ESSENTIAL_IMAGE=ghcr.io/awesome-containers/alpine-build-essential
+
+
+FROM $STATIC_BASH_IMAGE:$STATIC_BASH_VERSION-slim AS static-bash
+FROM $STATIC_OPENSSH_IMAGE:$STATIC_OPENSSH_VERSION AS static-openssh
+FROM $BUILD_ESSENTIAL_IMAGE:$BUILD_ESSENTIAL_VERSION AS build
+
+WORKDIR /src/openssh
+COPY --from=static-openssh /bin/ ./
+
+RUN set -xeu; \
+    rm -f bash; \
+    upx --no-progress --no-color ./*; \
+    upx -t --no-progress --no-color ./*; \
+    ! ldd ssh && :; \
+    ! ldd sshd && :; \
+    chmod -cR 755 ./*; \
+    chown -cR 0:0 ./*; \
+    ./ssh -V
+
+# slim static openssh image
+FROM static-bash
+
+COPY --from=static-openssh /etc/sshd_config /etc/passwd /etc/group /etc/
+COPY --from=static-openssh /var/empty /var/empty
+COPY --from=build /src/openssh/ /bin/
+
+ENTRYPOINT ["/bin/bash"]
+CMD ["-c" , "/bin/ssh-keygen -A && /bin/sshd -t && /bin/sshd -D -e -o PidFile=/run/sshd.pid -o port=2022"]
