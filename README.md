@@ -8,10 +8,10 @@ Statically linked [OpenSSH] container image with [Bash]
 
 ```bash
 ghcr.io/awesome-containers/static-openssh:latest
-ghcr.io/awesome-containers/static-openssh:9.2
+ghcr.io/awesome-containers/static-openssh:9.3
 
 docker.io/awesomecontainers/static-openssh:latest
-docker.io/awesomecontainers/static-openssh:9.2
+docker.io/awesomecontainers/static-openssh:9.3
 ```
 
 Slim statically linked [OpenSSH] container image with [Bash] and
@@ -21,10 +21,10 @@ packaged with [UPX]
 
 ```bash
 ghcr.io/awesome-containers/static-openssh:latest-slim
-ghcr.io/awesome-containers/static-openssh:9.2-slim
+ghcr.io/awesome-containers/static-openssh:9.3-slim
 
 docker.io/awesomecontainers/static-openssh:latest-slim
-docker.io/awesomecontainers/static-openssh:9.2-slim
+docker.io/awesomecontainers/static-openssh:9.3-slim
 ```
 
 [OpenSSH]: https://www.openssh.com/

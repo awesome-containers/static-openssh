@@ -14,7 +14,7 @@ FROM $BUILD_ESSENTIAL_IMAGE:$BUILD_ESSENTIAL_VERSION AS build
 RUN apk add --no-cache zlib-dev zlib-static openssl-dev openssl-libs-static
 
 # https://www.openssh.com/releasenotes.html
-ARG OPENSSH_VERSION=9.2
+ARG OPENSSH_VERSION=9.3
 
 WORKDIR /src/openssh
 # hadolint ignore=DL4006

@@ -3,7 +3,7 @@ ARG STATIC_BASH_VERSION=5.2.15
 ARG STATIC_BASH_IMAGE=ghcr.io/awesome-containers/static-bash
 
 # https://github.com/awesome-containers/static-openssh
-ARG STATIC_OPENSSH_VERSION=3.0.8
+ARG STATIC_OPENSSH_VERSION=9.3
 ARG STATIC_OPENSSH_IMAGE=ghcr.io/awesome-containers/static-openssh
 
 # https://github.com/awesome-containers/alpine-build-essential
